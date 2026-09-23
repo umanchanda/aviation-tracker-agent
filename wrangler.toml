@@ -27,7 +27,7 @@ TRACKED_AIRPORTS = ""
 # arriving at the paired destination (format "ORIG-DEST", comma-separated,
 # e.g. "MDW-DEN,MDW-LAS"). If TRACKED_AIRLINE_IATA is also set, routes are
 # further restricted to that airline. Leave empty ("") to disable this mode.
-TRACKED_ROUTES = "MDW-DAL,DAL-MDW,MDW-LGB,LGB-MDW"
+TRACKED_ROUTES = "MDW-DAL,DAL-MDW,MDW-LAX,LAX-MDW,MDW-BAL,BAL-MDW,MDW-ATL,ATL-MDW"
 
 # Stores last-known flight status per flight number to diff against on each poll.
 [[kv_namespaces]]
