@@ -1,0 +1,44 @@
+#:schema node_modules/wrangler/config-schema.json
+name = "aviation-tracker-agent"
+main = "src/index.ts"
+compatibility_date = "2024-09-23"
+compatibility_flags = ["nodejs_compat"]
+
+# Poll every hour.
+[triggers]
+crons = ["0 * * * *"]
+
+# Non-secret configuration. Comma-separated flight numbers/idents to watch,
+# e.g. "AA100,UA200,DAL45". Edit and redeploy to change the watch list.
+# Leave empty ("") to disable number-based tracking in favor of airline tracking below.
+[vars]
+TRACKED_FLIGHTS = ""
+AERODATABOX_HOST = "aerodatabox.p.rapidapi.com"
+
+# Airline-wide tracking: polls FIDS at each airport in TRACKED_AIRPORTS and keeps
+# only flights operated by TRACKED_AIRLINE_IATA. Leave TRACKED_AIRLINE_IATA empty
+# ("") to disable this mode. Note: this costs 1 AeroDataBox API call per airport
+# per poll, and each call can return many flights (higher quota usage than
+# per-flight-number tracking).
+TRACKED_AIRLINE_IATA = ""
+TRACKED_AIRPORTS = ""
+
+# Route tracking: polls FIDS at each origin airport and keeps only flights
+# arriving at the paired destination (format "ORIG-DEST", comma-separated,
+# e.g. "MDW-DEN,MDW-LAS"). If TRACKED_AIRLINE_IATA is also set, routes are
+# further restricted to that airline. Leave empty ("") to disable this mode.
+TRACKED_ROUTES = "EWR-LHR,ORD-LHR,JFK-LHR,LHR-EWR,LHR-ORD,LHR-JFK"
+
+# Stores last-known flight status per flight number to diff against on each poll.
+[[kv_namespaces]]
+binding = "FLIGHT_STATE_KV"
+id = "749fc4082b32496bad2aead108416c75"
+preview_id = "749fc4082b32496bad2aead108416c75"
+
+# Workers AI binding used to summarize status changes.
+[ai]
+binding = "AI"
+
+# Secrets (set via `wrangler secret put`, do NOT put values here):
+#   AERODATABOX_API_KEY
+#   DISCORD_WEBHOOK_URL

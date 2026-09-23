@@ -1,0 +1,18 @@
+{
+  "name": "aviation-tracker-agent",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Serverless autonomous aviation tracking agent on Cloudflare Workers",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "tail": "wrangler tail",
+    "typecheck": "tsc --noEmit",
+    "cf-typegen": "wrangler types"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260922.1",
+    "typescript": "^7.0.2",
+    "wrangler": "^4.136.2"
+  }
+}
