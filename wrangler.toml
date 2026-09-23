@@ -6,7 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 
 # Poll every hour.
 [triggers]
-crons = ["0 * * * *"]
+crons = ["*/5 * * * *"]
 
 # Non-secret configuration. Comma-separated flight numbers/idents to watch,
 # e.g. "AA100,UA200,DAL45". Edit and redeploy to change the watch list.
